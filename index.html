@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./website.html">
+</head>
+<style>
+    .login{
+     text-align: center;
+     margin: 100px auto;
+     padding: 20px;
+     margin-top: 30px;
+     width: 250px;
+     background-color: white;
+     box-shadow: 0 7px 10px black;
+     border-radius: 7px;
+}
+.login h2{
+    margin-bottom: 20px;
+    color: black;
+}
+.loginfrom input{
+     width: 90%;
+     margin: 10px 0;
+     padding: 10px;
+     border: 1px solid rgb(20, 19, 19);
+     border-radius: 5px;
+     background: transparent;
+     outline: none;
+     font-family: sans-serif;
+ }
+ .loginfrom button{
+    background: blue;
+    color: white;
+    border: none;
+     padding: 10px 20px;
+     border-radius: 5px;
+     cursor: pointer;
+     width: 150px;
+ }
+ .loginfrom button:hover{
+    background: black;
+    color: white;
+ }
+</style>
+<body>
+    
+    <div class="login"     id="login1">
+
+        <h2>singup</h2>
+        <div   id="from"   class="loginfrom">
+            <input type="text"  id="name" placeholder="Name" required>
+            <input type="email"  id="email" placeholder="Email" required>
+            <input type="password"  id="password" placeholder="Passward" required>
+    
+            <button type="button" onclick="singup()">singup</button>
+        </div>
+    </div>
+
+    <script>
+           function singup(){
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+
+    if (name && email && password){
+        var Detail = {
+            name,
+            email,
+            password,
+        };
+        localStorage.setItem("user" ,JSON.stringify(Detail));    
+        window.location.href = "checkout.html";
+    }
+    else{
+        alert("fill the Data")
+    }
+   }
+    </script>
+
+<script src="app.js"></script>
+</body>
+</html>

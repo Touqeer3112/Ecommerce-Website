@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile</title>
+</head>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.product {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+.product .box-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: space-between;
+}
+.product .box-container .box {
+    flex: 1 1 30%;
+    background-color: #fff;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+.product .box-container .box:hover {
+    transform: translateY(-10px);
+}
+.product .box-container .box .discount {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.6rem;
+    color: white;
+    background-color: red;
+    border-radius: 0.3rem;
+}
+.product .box-container .box .img {
+    position: relative;
+    text-align: center;
+    padding-top: 2rem;
+    overflow: hidden;
+}
+
+.product .box-container .box .img img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+.product .box-container .box:hover .img img {
+    transform: scale(1.1);
+}
+.product .box-container .box .img .icons {
+    position: absolute;
+    bottom: -5rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    transition: bottom 0.3s ease;
+}
+.product .box-container .box:hover .img .icons {
+    bottom: 0;
+}
+.product .box-container .box .img .icons a {
+    display: inline-block;
+    width: 48%;
+    padding: 1rem;
+    background-color: #20adee;
+    color: white;
+    text-align: center;
+    border-radius: 0.3rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+.product .box-container .box .img .icons a:hover {
+    background-color: #333;
+}
+.product .box-container .box .content {
+    padding: 2rem;
+    text-align: center;
+}
+.product .box-container .box .content h3 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+.product .box-container .box .content .price {
+    font-size: 2.5rem;
+    color: #20adee;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+
+.product .box-container .box .content .price span {
+    font-size: 1.5rem;
+    color: #999;
+    text-decoration: line-through;
+}
+
+
+#profile {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+}
+
+#profile h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+#profile h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+#cart-items {
+    margin-top: 2rem;
+}
+
+#cart-items .product-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 1rem;
+}
+
+#cart-items .product-item img {
+    width: 100px;
+    height: 100px;
+    margin-right: 1rem;
+    object-fit: cover;
+}
+
+#cart-items .product-item h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+#cart-items .product-item p {
+    font-size: 1.6rem;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: #20adee;
+    font-size: 1.2rem;
+}
+
+a:hover {
+    color: #333;
+}
+#logout-btn{
+  background: #333;
+  color: white;
+  width: 60px;
+  height: 30px;
+}
+</style>
+
+
+<body>
+  <div id="profile">
+      <h1>Your Profile</h1>
+      <h2>Your Cart Items</h2>
+      <div id="cart-items"></div>
+      <a href="website.html">Back to Shopping</a>
+    
+      <button id="logout-btn">Logout</button>
+  </div>
+
+  <script>
+     
+      window.onload = function() {
+          const cart = JSON.parse(localStorage.getItem('cart')) || [];
+          const cartItemsContainer = document.getElementById('cart-items');
+
+          if (cart.length === 0) {
+              cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+          } else {
+              cart.forEach(product => {
+                  const productDiv = document.createElement('div');
+                  productDiv.classList.add('product-item');
+                  
+                  productDiv.innerHTML = `
+                      <img src="${product.image}" alt="${product.name}" width="100">
+                      <h3>${product.name}</h3>
+                      <p>Price: ${product.price}</p>
+                   
+                  `;
+                  
+                  cartItemsContainer.appendChild(productDiv);
+              });
+          }    
+      };
+
+     
+      document.getElementById('logout-btn').addEventListener('click', function() {
+         
+          localStorage.removeItem('cart');
+          
+          // Optionally, you could redirect to a login page
+          alert('You have logged out successfully!');
+          window.location.href = 'index.html';  
+      });
+
+     
+      
+  </script>
+</body>
+
